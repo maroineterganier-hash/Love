@@ -1,12 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>رسالة حب</title>
+    <style>
+        body {
+            background-color: #001a33;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        #moon {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            animation: moveMoon 10s infinite alternate;
+        }
+        @keyframes moveMoon {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+        .star {
+            position: absolute;
+            background: yellow;
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            animation: twinkle 1.5s infinite alternate;
+        }
+        @keyframes twinkle {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+        #hearts { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background: transparent; 
+        }
+        @keyframes floatHearts {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <p>This is a sample index.html file.</p>
+    <div id="moon">🌙</div>
+    <div id="hearts"></div>
+    <h1>حبك في قلبي</h1>
+    <p>رسالة خاصة من مروان إلى آية</p>
+    <div id="countdown"></div>
+    
+    <script>
+        const countdownDate = new Date('2026-02-12T00:45:38Z').getTime();
+        
+        const countdownFunction = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById('countdown').innerHTML = `تبقى ${days} يوم، ${hours} ساعة، ${minutes} دقيقة، و ${seconds} ثانية`;
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById('countdown').innerHTML = "لقد حان الوقت!";
+            }
+        }, 1000);
+
+        for (let i = 0; i < 50; i++) {
+            let star = document.createElement('div');
+            star.classList.add('star');
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(star);
+        }
+
+        for (let i = 0; i < 30; i++) {
+            let heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.position = 'absolute';
+            heart.style.animation = `floatHearts ${Math.random() * 3 + 2}s infinite`;
+            heart.innerHTML = '❤️';
+            heart.style.top = Math.random() * 100 + 'vh';
+            heart.style.left = Math.random() * 100 + 'vw';
+            document.getElementById('hearts').appendChild(heart);
+        }
+    </script>
 </body>
 </html>
